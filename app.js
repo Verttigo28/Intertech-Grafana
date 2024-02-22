@@ -51,7 +51,7 @@ function transformValue(path) {
 function updateMetrics() {
     request('http://10.99.99.11/status.xml', function (error, response, body) {
         let result = JSON.parse(convert.xml2json(body, {compact: true, spaces: 2}));
-        liveCurrent.set(parseFloat(result.response.cur0._text))
+        liveCurrent.set(Math.round(parseFloat(result.response.cur0._text) * 100) / 100)
 
         pduState.set(transformValue(result.response.stat0._text))
 
